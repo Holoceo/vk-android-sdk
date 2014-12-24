@@ -23,7 +23,6 @@ android {
         }
         debug {
             debuggable true
-            jniDebugBuild true
         }
     }
     productFlavors {

@@ -139,6 +139,11 @@ public class VKApiPost extends VKAttachments.VKApiAttachment implements Identifi
     public int signer_id;
 
     /**
+     * Whether the post is pinned (1 - pinned, 0 - not pinned).
+     */
+    public int is_pinned;
+
+    /**
      * List of history of the reposts.
      */
     public VKList<VKApiPost> copy_history;
@@ -184,6 +189,7 @@ public class VKApiPost extends VKAttachments.VKApiAttachment implements Identifi
         }
         signer_id = source.optInt("signer_id");
         copy_history = new VKList<VKApiPost>(source.optJSONArray("copy_history"), VKApiPost.class);
+        is_pinned = source.optInt("is_pinned");
         return this;
     }
 
@@ -211,6 +217,7 @@ public class VKApiPost extends VKAttachments.VKApiAttachment implements Identifi
         this.attachments = in.readParcelable(VKAttachments.class.getClassLoader());
         this.geo = in.readParcelable(VKApiPlace.class.getClassLoader());
         this.signer_id = in.readInt();
+        this.is_pinned = in.readInt();
     }
 
     /**
@@ -262,6 +269,7 @@ public class VKApiPost extends VKAttachments.VKApiAttachment implements Identifi
         dest.writeParcelable(attachments, flags);
         dest.writeParcelable(this.geo, flags);
         dest.writeInt(this.signer_id);
+        dest.writeInt(this.is_pinned);
     }
 
     public static Creator<VKApiPost> CREATOR = new Creator<VKApiPost>() {
